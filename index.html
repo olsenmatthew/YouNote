@@ -3,7 +3,7 @@
 <html>
 <br>
 
-	<head class="head">
+	<head id="head" class="head">
 		<!-- <link rel="stylesheet" href="head.css"> -->
 		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 		<meta charset="utf-8">
@@ -13,25 +13,25 @@
 			<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
 					integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
 					crossorigin="anonymous">
-			<button class="drop_menu"><i class="fas fa-bars"></i></button>
-			<img class="logo" src="YouNote.png">
-			<input class="search_bar" type="text" placeholder="Search..." name="search">
-			<button class="search_bar" type="submit"><i class="fa fa-search"></i></button>
-			<button class="account_buttons"><i class="fas fa-user-circle"></i></button>
-			<button class="account_buttons"><i class="fas fa-bell"></i></button>
-			<button class="account_buttons"><i class="far fa-sticky-note"></i></button>
-
+			<button id="drop_menu" class="drop_menu"><i class="fas fa-bars"></i></button>
+			<img id="logo" class="logo" src="YouNote.png">
+			<input id="search_bar_input" class="search_bar" type="text" placeholder="Search..." name="search">
+			<button id="search_bar_icon" class="search_bar" type="submit"><i class="fa fa-search"></i></button>
+			<button id="account_buttons_account" class="account_buttons"><i class="fas fa-user-circle"></i></button>
+			<button id="account_buttons_notifications" class="account_buttons"><i class="fas fa-bell"></i></button>
+			<button id="account_buttons_notes" class="account_buttons"><i class="far fa-sticky-note"></i></button>
 		</div>
 	</head>
 
-	<br>
+	<!-- <br id="neck"> -->
 
-	<body>
-		<div class="wrapper">
-		<!-- <h1>YouNote</h1> -->
+	<body id="body">
+		<div id="attatch_body"></div>
+		<div id="wrapper" class="wrapper">
 			<link rel="stylesheet" href="video_wrapper.css">
-			<div class="video_wrapper">
+			<div id="video_wrapper" class="video_wrapper">
 				<iframe
+					id="video_iframe"
 					src="https://www.youtube.com/embed/S1VxAwJiMm8"
 					frameborder="0"
 					allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -39,6 +39,8 @@
 				</iframe>
 			</div>
 		</div>
+		<link rel="stylesheet" href="side_bar_drop_down_menu.css">
+		<script type="text/javascript" src="main.js"></script>
 	</body>
 
 </html>

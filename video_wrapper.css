@@ -5,7 +5,10 @@
 
 .wrapper {
 	margin: 0 auto;
-	width: 1000px;
+	margin-top: 1%;
+	width: 60%;
+	position: fixed;
+	left: 5%;
 }
 
 .video_wrapper {

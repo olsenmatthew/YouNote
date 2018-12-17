@@ -4,7 +4,7 @@ div.header_container button.drop_menu {
 	width: 4%;
 	float: left;
 	padding: 0.5%;
-	font-size: 17px;
+	font-size: 20px;
 	color:  #000000;
 	background: #FFFFFF;
 	cursor: pointer;
@@ -13,13 +13,15 @@ div.header_container button.drop_menu {
     -moz-border-radius: 3px;
 }
 
+/* Style the account */
 div.header_container img.logo {
-	height: auto;
+	max-height: 4%;
+	max-width: 5.5%;
 	width: 5.5%;
 	float: left;
 	/* padding: 5px; */
 	margin-left: 1%;
-	font-size: 17px;
+	font-size: 20px;
 	color: #000000;
 	background: #FFFFFF;
 	cursor: pointer;
@@ -59,7 +61,7 @@ div.header_container button.search_bar {
 	-webkit-border-radius: 3px;
     -moz-border-radius: 3px;
 }
-
+/* Style the account buttons */
 div.header_container button.account_buttons {
 	height: 4%;
 	width: 4%;
@@ -73,7 +75,7 @@ div.header_container button.account_buttons {
 	-webkit-border-radius: 3px;
     -moz-border-radius: 3px;
 }
-
+/* change color on button's hover */
 div.header_container button.search_bar:hover {
 	background: #0b7dda;
 }
