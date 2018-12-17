@@ -1,0 +1,86 @@
+.login_container {
+	display: inline-block;
+	align-items: center;
+	z-index: 1;
+	left: auto;
+	right: auto;
+}
+
+.row_login_create {
+	width: 100%;
+	align-items: center;
+	position: fixed;
+	z-index: 1;
+	top: 25%;
+}
+
+.login_container div {
+	display: inline-block;
+	z-index: 1;
+	left: 15%;
+	right: 15%;
+}
+
+.login_form_left {
+	max-width: 30%;
+	max-height: 30%;
+	height: 30%;
+	width: 30%;
+    padding: 2.5%;
+	z-index: 1;
+    background:#282726;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+
+.login_form_left h3 {
+    text-align: center;
+    margin-bottom:12%;
+    color:#fff;
+}
+
+.login_form_right {
+	max-width: 30%;
+	max-height: 30%;
+	height: 30%;
+	width: 30%;
+    padding: 2.5%;
+	align-items: center;
+    background: #f05837;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+
+.login_form_right h3 {
+    text-align: center;
+    margin-bottom:12%;
+    color: #fff;
+}
+
+.buttonSubmit {
+    font-weight: 600;
+    width: 100%;
+    color: #282726;
+    background-color: #fff;
+    border: none;
+    border-radius: 1.5rem;
+    padding:2%;
+}
+
+.buttonForgotPassword {
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+	display: inline-block;
+	/* margin-right: 100%; */
+}
+
+.buttonForgotPassword:hover {
+    text-decoration:none;
+    color:#fff;
+}
+
+.form_group {
+	margin-right: 100%;
+	margin-bottom: 5%;
+	display: inline;
+	/* align-self: center; */
+}
