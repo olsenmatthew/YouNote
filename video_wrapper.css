@@ -27,3 +27,122 @@
 	height: 100%;
 	width: 100%;
 }
+
+.note_box {
+	margin: 0 auto;
+	margin-left: 5%;
+	margin-top: 1%;
+	width: 25%;
+	height: auto;
+	position: fixed;
+	right: 5%;
+	background: #fff;
+	box-shadow: 0 3px #cccccc;
+}
+
+.note_box_title {
+	/* width: 100%; */
+	background: #7289da;
+}
+
+.note_box_title h2 {
+	text-align: center;
+	color: #ffffff;
+}
+
+.note_logs {
+	/* padding: 10px; */
+	width: 100%;
+	height: 500px;
+	background: #eeeeee;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+.note_logs::-webkit-scrollbar {
+	width: 10px;
+}
+
+.note_logs::-webkit-scrollbar-thumb {
+	border-radius: 5px;
+	background: rgba(0,0,0,.1);
+}
+
+.my_note {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: flex-start;
+	/* margin-bottom: 10px; */
+}
+
+.note .user_note {
+	width: 80%;
+	padding: 7.5px;
+	margin: 10px;
+	margin-left: 10%;
+	margin-right: 10%;
+	border-radius: 10px;
+	font-size: 15px;
+}
+
+.other_content .user_note {
+	background: #1adda4;
+}
+
+.my_content .user_note {
+	background: #aab8e8;
+}
+
+.note_form {
+	margin: 20px;
+	display: flex;
+	/* width: 100%;
+	height: 25%; */
+	align-items: flex-start;
+}
+
+.note_form .write_note_textarea {
+	background: #fbfbfb;
+	width: 75%;
+	height: 50px
+	border: 2px solid #eeeeee;
+	border-radius: 3px;
+	resize: none;
+	padding: 10px;
+	font-size: 15px;
+	color: 333333;
+}
+
+.note_form .write_note_textarea:focus {
+	background: #ffffff;
+}
+
+.note_form .write_note_textarea::-webkit-scrollbar {
+	width: 10px;
+}
+
+.note_form .write_note_textarea::-webkit-scrollbar-thumb {
+	border-radius: 5px;
+	background: rgba(0,0,0,.1);
+}
+
+.note_form .save_note_button {
+	background: #2c2f33;
+	padding: 10px;
+	color: #ffffff;
+	font-size: 15px;
+	width: 15%;
+	height: 50px;
+	padding: 10px;
+	border-radius: 3px;
+	border-color: #c1c1c1;
+	margin-left: 5%;
+	box-shadow: 0 3px 0 #23272a;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+.note_form .save_note_button:hover {
+	background: #56585b;
+	box-shadow: 0 3px 0 #2c2f33;
+}

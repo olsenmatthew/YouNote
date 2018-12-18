@@ -9,6 +9,11 @@ var account_buttons_notes = document.getElementById("account_buttons_notes");
 var wrapper = document.getElementById("wrapper");
 var video_wrapper = document.getElementById("video_wrapper");
 var video_iframe = document.getElementById("video_iframe");
+var note_box = document.getElementById("note_box");
+var note_logs = document.getElementById("note_logs");
+var note_form = document.getElementById("note_form");
+var write_note_textarea = document.getElementById("write_note_textarea");
+var save_note_button = document.getElementById("save_note_button");
 
 // while(video_iframe == null) video_iframe = document.getElementById("video_iframe");
 
@@ -89,21 +94,45 @@ search_bar_icon.addEventListener("click", function search_for_video() {
 		console.log("Empty Search: Go Home");
 	} else {
 
-		if (new_link.includes("youtube.com/watch?v=")) {
-			new_link = new_link.split("youtube.com/watch?v=").pop();
-		}
+		var data_sections = new_link.split("&");
+		console.log(data_sections);
 
-		if (new_link.includes("&list")) {
-			var playlist = new_link.split("&list")[1];
-			// TODO: save playlist to database
-			console.log("&list"+playlist);
-			new_link = new_link.split("&list")[0];
-		}
+		var time = "";
+		var playlist = "";
+		var playlist_index = "";
 
-		var prefix = "https://www.youtube.com/embed/";
-		new_link = prefix + new_link;
-		console.log(new_link);
+		// TODO: save index of playlist
 		// TODO: save video to database along with playlist
+		// TODO: save playlist to database
+
+		for(var i = 0; i < data_sections.length; i++) {
+
+			if (data_sections[i].includes("v=")) {
+
+				new_link = data_sections[i].split("v=").pop();
+
+			} else if (data_sections[i].includes("t=")
+				&& !data_sections[i].includes("list=")) {
+
+				time = data_sections[i].split("t=").pop();
+
+			} else if (data_sections[i].includes("list=")) {
+
+				playlist = data_sections[i].split("list=").pop();
+
+			} else if (data_sections[i].includes("index=")) {
+
+				playlist_index = data_sections[i].split("index=").pop();
+
+			}
+
+		}
+		new_link = "https://www.youtube.com/embed/" + new_link;
+		console.log("new_link: " + new_link);
+		console.log("time: " + time);
+		console.log("playlist: " + playlist);
+		console.log("playlist_index: " + playlist_index);
+
 		video_iframe.setAttribute("src", new_link);
 		// document.location.reload(true);
 		console.log("new video\n");
@@ -259,6 +288,26 @@ account_buttons_notifications.addEventListener("click", function show_hide_notif
 account_buttons_notes.addEventListener("click", function show_hide_notes_history() {
 
 	console.log("notes history clicked\n");
+
+});
+
+save_note_button.addEventListener("click", function post_written_note() {
+
+	var note_text = write_note_textarea.value;
+
+	var new_note = document.createElement("div");
+	new_note.className = "note my_content";
+
+	var user_note = document.createElement("div");
+	user_note.className = "user_note";
+
+	var user_note_text = document.createTextNode(note_text);
+	user_note.append(user_note_text);
+
+	new_note.append(user_note)
+	note_logs.append(new_note);
+
+	write_note_textarea.value = "";
 
 });
 
