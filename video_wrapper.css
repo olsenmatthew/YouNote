@@ -33,7 +33,7 @@
 	margin-left: 5%;
 	margin-top: 1%;
 	width: 25%;
-	height: auto;
+	/* height: 154px; */
 	position: fixed;
 	right: 5%;
 	background: #fff;
@@ -94,7 +94,7 @@
 }
 
 .note_form {
-	margin: 20px;
+	/* margin: 20px; */
 	display: flex;
 	/* width: 100%;
 	height: 25%; */
@@ -136,10 +136,10 @@
 	padding: 10px;
 	border-radius: 3px;
 	border-color: #c1c1c1;
-	margin-left: 5%;
+	/* margin-left: 5%; */
 	box-shadow: 0 3px 0 #23272a;
 	cursor: pointer;
-	font-weight: bold;
+	/* font-weight: bold; */
 }
 
 .note_form .save_note_button:hover {

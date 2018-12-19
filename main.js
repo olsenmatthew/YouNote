@@ -10,12 +10,14 @@ var wrapper = document.getElementById("wrapper");
 var video_wrapper = document.getElementById("video_wrapper");
 var video_iframe = document.getElementById("video_iframe");
 var note_box = document.getElementById("note_box");
+var note_box_title = document.getElementById("note_box_title");
 var note_logs = document.getElementById("note_logs");
 var note_form = document.getElementById("note_form");
 var write_note_textarea = document.getElementById("write_note_textarea");
 var save_note_button = document.getElementById("save_note_button");
+var yt_player = YT.get("video_iframe");
 
-// while(video_iframe == null) video_iframe = document.getElementById("video_iframe");
+window.addEventListener("resize", resizeElements());
 
 drop_menu.addEventListener("click", function show_hide_drop_menu() {
 
@@ -127,14 +129,18 @@ search_bar_icon.addEventListener("click", function search_for_video() {
 			}
 
 		}
-		new_link = "https://www.youtube.com/embed/" + new_link;
+
 		console.log("new_link: " + new_link);
 		console.log("time: " + time);
 		console.log("playlist: " + playlist);
 		console.log("playlist_index: " + playlist_index);
 
-		video_iframe.setAttribute("src", new_link);
-		// document.location.reload(true);
+		yt_player.loadVideoById({videoId:new_link});
+
+		while(note_logs.firstChild) {
+			note_logs.removeChild(note_logs.firstChild);
+		}
+
 		console.log("new video\n");
 		search_bar_input.value = "";
 
@@ -294,18 +300,26 @@ account_buttons_notes.addEventListener("click", function show_hide_notes_history
 save_note_button.addEventListener("click", function post_written_note() {
 
 	var note_text = write_note_textarea.value;
+	if (note_text.match(/\S+/i)) {
 
-	var new_note = document.createElement("div");
-	new_note.className = "note my_content";
+		var num = yt_player.getCurrentTime();
+		console.log("current time: "+num);
 
-	var user_note = document.createElement("div");
-	user_note.className = "user_note";
+		 note_text = note_text + "\n" + "time: " + num;
 
-	var user_note_text = document.createTextNode(note_text);
-	user_note.append(user_note_text);
+		var new_note = document.createElement("div");
+		new_note.className = "note my_content";
 
-	new_note.append(user_note)
-	note_logs.append(new_note);
+		var user_note = document.createElement("div");
+		user_note.className = "user_note";
+
+		var user_note_text = document.createTextNode(note_text);
+		user_note.append(user_note_text);
+
+		new_note.append(user_note);
+		note_logs.append(new_note);
+
+	}
 
 	write_note_textarea.value = "";
 
@@ -337,15 +351,27 @@ function removeOnForeignClick(id) {
 
 }
 
-// function removeElementAndChildren(id) {
-//
-// 	if (document.getElementById(id)) {
-// 		var element = document.getElementById(id);
-// 		while(element.firstChild) {
-// 			element.removeChild(element.firstChild);
-// 		}
-// 		element.remove();
-// 	}
-// 	return;
-//
-// }
+function resizeElements() {
+
+	var video_and_notes_height = video_iframe.clientHeight;
+
+	console.log("video notes height: "+video_and_notes_height);
+
+	note_box.style.height = video_and_notes_height+"px";
+
+	note_box_title.style.height = (video_and_notes_height*.05)+"px";
+	note_box_title.style.fontSize = (video_and_notes_height*.025)+"px";
+
+	note_logs.style.height = (video_and_notes_height*.75)+"px";
+
+	note_form.style.height = (video_and_notes_height*.2)+"px";
+
+	write_note_textarea.style.height = (video_and_notes_height*.1)+"px";
+	write_note_textarea.style.margin = (video_and_notes_height*.025)+"px";
+	write_note_textarea.style.fontSize = (video_and_notes_height*.025)+"px";
+
+	save_note_button.style.height = write_note_textarea.clientHeight+"px";
+	save_note_button.style.margin = (video_and_notes_height*.025)+"px";
+	save_note_button.style.fontSize = (video_and_notes_height*.025)+"px";
+
+}

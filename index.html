@@ -2,7 +2,6 @@
 
 <html>
 <br>
-
 	<head id="head" class="head">
 		<!-- <link rel="stylesheet" href="head.css"> -->
 		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
@@ -23,22 +22,15 @@
 			integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
 			crossorigin="anonymous">
 
-
 	<body id="body">
 		<div id="attatch_body"></div>
 		<div id="wrapper" class="wrapper">
 			<div id="video_wrapper" class="video_wrapper">
-				<iframe
-					id="video_iframe"
-					src="https://www.youtube.com/embed/yCChR2HgCgc"
-					frameborder="0"
-					allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-					allowfullscreen>
-				</iframe>
+				<div id="video_iframe" class="video_iframe"></div>
 			</div>
 		</div>
 		<div id="note_box" class="note_box">
-			<div class="note_box_title"><h2>Video Notes</h2></div>
+			<div id="note_box_title" class="note_box_title"><h2>Video Notes</h2></div>
 
 			<div id="note_logs" class="note_logs"></div>
 
@@ -48,9 +40,10 @@
 			</div>
 		</div>
 	</body>
-	<script type="text/javascript" src="main.js"></script>
+	<script type="text/javascript" src="yt_api.js"></script>
 	<link rel="stylesheet" href="side_bar_drop_down_menu.css">
 	<link rel="stylesheet" href="login_create.css">
 	<link rel="stylesheet" href="video_wrapper.css">
+	<!-- <script type="text/javascript" src="main.js"></script> -->
 
 </html>
