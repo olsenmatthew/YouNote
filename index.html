@@ -3,13 +3,11 @@
 <html>
 <br>
 	<head id="head" class="head">
-		<!-- <link rel="stylesheet" href="head.css"> -->
-		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 		<meta charset="utf-8">
 		<title>YouNote</title>
 		<div class="header_container">
 			<button id="drop_menu" class="drop_menu"><i class="fas fa-bars"></i></button>
-			<img id="logo" class="logo" src="YouNote.png">
+			<img id="logo" class="logo" src="style/drawable/YouNote.png">
 			<input id="search_bar_input" class="search_bar" type="text" placeholder="Search..." name="search">
 			<button id="search_bar_icon" class="search_bar" type="submit"><i class="fa fa-search"></i></button>
 			<button id="account_buttons_account" class="account_buttons"><i class="fas fa-user-circle"></i></button>
@@ -17,7 +15,7 @@
 			<button id="account_buttons_notes" class="account_buttons"><i class="far fa-sticky-note"></i></button>
 		</div>
 	</head>
-	<link rel="stylesheet" href="header.css">
+	<link rel="stylesheet" href="style/header.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
 			integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
 			crossorigin="anonymous">
@@ -40,10 +38,13 @@
 			</div>
 		</div>
 	</body>
+	<!-- <script data-main="common" src="require.js"></script>
+	<script require(["common"].function() {
+	  require(["yt_api"]);
+	});></script> -->
 	<script type="text/javascript" src="yt_api.js"></script>
-	<link rel="stylesheet" href="side_bar_drop_down_menu.css">
-	<link rel="stylesheet" href="login_create.css">
-	<link rel="stylesheet" href="video_wrapper.css">
-	<!-- <script type="text/javascript" src="main.js"></script> -->
+	<link rel="stylesheet" href="style/side_bar_drop_down_menu.css">
+	<link rel="stylesheet" href="style/login_create.css">
+	<link rel="stylesheet" href="style/video_wrapper.css">
 
 </html>

@@ -17,6 +17,17 @@ var write_note_textarea = document.getElementById("write_note_textarea");
 var save_note_button = document.getElementById("save_note_button");
 var yt_player = YT.get("video_iframe");
 
+var xhttp = new XMLHttpRequest();
+var login_post_destination = "http://localhost:5000/info/posts/users";
+// xhttp.open("POST", login_post_destination, true);
+// xhttp.send({
+// 	"name": "myName",
+// 	"email": "my@gmail.com"
+// });
+ // 5c1c1253f5ee8b50303e2413
+ xhttp.open("GET", login_post_destination, true);
+ xhttp.send();
+
 window.addEventListener("resize", resizeElements());
 
 drop_menu.addEventListener("click", function show_hide_drop_menu() {
