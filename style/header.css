@@ -1,4 +1,6 @@
-/* Style the account buttons */
+/* this file is meant to style the header of index.html */
+
+/* Style the drop menu located on the far left*/
 div.header_container button.drop_menu {
 	height: 4%;
 	width: 4%;
@@ -13,13 +15,12 @@ div.header_container button.drop_menu {
     -moz-border-radius: 3px;
 }
 
-/* Style the account */
+/* Style the image logo in the header */
 div.header_container img.logo {
 	max-height: 4%;
 	max-width: 5.5%;
 	width: 5.5%;
 	float: left;
-	/* padding: 5px; */
 	margin-left: 1%;
 	font-size: 20px;
 	color: #000000;
@@ -31,7 +32,7 @@ div.header_container img.logo {
 }
 
 
-/* Style the text field */
+/* Style the text field  of the search bar*/
 div.header_container input[type=text].search_bar {
 	height: 2.5%;
 	width: 25%;
@@ -61,7 +62,7 @@ div.header_container button.search_bar {
 	-webkit-border-radius: 3px;
     -moz-border-radius: 3px;
 }
-/* Style the account buttons */
+/* Style the account buttons located on the far right*/
 div.header_container button.account_buttons {
 	height: 4%;
 	width: 4%;
@@ -75,12 +76,12 @@ div.header_container button.account_buttons {
 	-webkit-border-radius: 3px;
     -moz-border-radius: 3px;
 }
-/* change color on button's hover */
+/* change color of search button on hover */
 div.header_container button.search_bar:hover {
 	background: #667bc4;
 }
 
-/* Clears text field after search */
+/* Clears text field of the search bar after search */
 div.header_container::after {
 	content: "";
 	clear: both;

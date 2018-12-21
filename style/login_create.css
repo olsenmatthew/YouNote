@@ -1,3 +1,7 @@
+/*
+	style container which contains login and register forms
+	ensure visibility
+ */
 .login_container {
 	display: inline-block;
 	align-items: center;
@@ -6,6 +10,7 @@
 	right: auto;
 }
 
+/* align elements within each row */
 .row_login_create {
 	width: 100%;
 	align-items: center;
@@ -14,6 +19,7 @@
 	top: 25%;
 }
 
+/* style divs inside of login container */
 .login_container div {
 	display: inline-block;
 	z-index: 1;
@@ -21,6 +27,7 @@
 	right: 15%;
 }
 
+/* style login form (keep on left hand side) */
 .login_form_left {
 	max-width: 30%;
 	max-height: 30%;
@@ -32,12 +39,14 @@
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
 }
 
+/* align left form title in center */
 .login_form_left h3 {
     text-align: center;
     margin-bottom:12%;
     color:#fff;
 }
 
+/* style register form (keep on the right hand side) */
 .login_form_right {
 	max-width: 30%;
 	max-height: 30%;
@@ -49,12 +58,14 @@
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
 }
 
+/* align right form title in center */
 .login_form_right h3 {
     text-align: center;
     margin-bottom:12%;
     color: #fff;
 }
 
+/* style login/register buttons in each form */
 .buttonSubmit {
     font-weight: 600;
     width: 100%;
@@ -65,22 +76,23 @@
     padding:2%;
 }
 
+/* style forgot password buttons of each form */
 .buttonForgotPassword {
     color: #fff;
     font-weight: 600;
     text-decoration: none;
 	display: inline-block;
-	/* margin-right: 100%; */
 }
 
+/* change color of forgot password on hover*/
 .buttonForgotPassword:hover {
     text-decoration:none;
     color:#fff;
 }
 
+/* style form's div containers */
 .form_group {
 	margin-right: 100%;
 	margin-bottom: 5%;
 	display: inline;
-	/* align-self: center; */
 }

@@ -1,8 +1,4 @@
-* {
-	margin: 0;
-	padding: 0;
-}
-
+/* set dimensions and position of wrapper container for video_wrapper and youtube's iframe */
 .wrapper {
 	margin: 0 auto;
 	margin-top: 1%;
@@ -11,6 +7,7 @@
 	left: 5%;
 }
 
+/* set dimensions and position of video_wrapper (only child is youtube's iframe) */
 .video_wrapper {
 	position: relative;
 	padding-bottom: 56.25%;
@@ -18,6 +15,7 @@
 	height: 0px;
 }
 
+/* fit iframe to video_wrapper */
 .video_wrapper iframe {
 	position: absolute;
 	left: 0px;
@@ -28,30 +26,34 @@
 	width: 100%;
 }
 
+/*  style note_box which contains all note taking related elements */
 .note_box {
 	margin: 0 auto;
 	margin-left: 5%;
 	margin-top: 1%;
 	width: 25%;
-	/* height: 154px; */
 	position: fixed;
 	right: 5%;
 	background: #fff;
 	box-shadow: 0 3px #cccccc;
 }
 
+/* set background of note_box_title */
 .note_box_title {
-	/* width: 100%; */
 	background: #7289da;
 }
 
+/* align and color note_box_title text */
 .note_box_title h2 {
 	text-align: center;
 	color: #ffffff;
 }
 
+/*
+style container for all notes
+handle overflow with vertical scroll
+*/
 .note_logs {
-	/* padding: 10px; */
 	width: 100%;
 	height: 500px;
 	background: #eeeeee;
@@ -59,22 +61,24 @@
 	overflow-y: scroll;
 }
 
+/* style scrollbar to note_logs */
 .note_logs::-webkit-scrollbar {
 	width: 10px;
 }
 
+/* style scrollbar to note_logs */
 .note_logs::-webkit-scrollbar-thumb {
 	border-radius: 5px;
 	background: rgba(0,0,0,.1);
 }
 
+/* wrap text of each note to next line */
 .my_note {
 	display: flex;
 	flex-flow: row wrap;
 	align-items: flex-start;
-	/* margin-bottom: 10px; */
 }
-
+/* style each posted note */
 .note .user_note {
 	width: 80%;
 	padding: 7.5px;
@@ -85,22 +89,23 @@
 	font-size: 15px;
 }
 
+/* change colors of notes if not posted by this user */
 .other_content .user_note {
 	background: #1adda4;
 }
 
+/* change colors of notes if posted by this user */
 .my_content .user_note {
 	background: #aab8e8;
 }
 
+/* note input textarea and post button container */
 .note_form {
-	/* margin: 20px; */
 	display: flex;
-	/* width: 100%;
-	height: 25%; */
 	align-items: flex-start;
 }
 
+/* set dimensions for note input text area */
 .note_form .write_note_textarea {
 	background: #fbfbfb;
 	width: 75%;
@@ -113,19 +118,23 @@
 	color: 333333;
 }
 
+/* change background color on focus */
 .note_form .write_note_textarea:focus {
 	background: #ffffff;
 }
 
+/* style scrollbar of note input area */
 .note_form .write_note_textarea::-webkit-scrollbar {
 	width: 10px;
 }
 
+/* style scrollbar of note input area */
 .note_form .write_note_textarea::-webkit-scrollbar-thumb {
 	border-radius: 5px;
 	background: rgba(0,0,0,.1);
 }
 
+/* style button that saves each note */
 .note_form .save_note_button {
 	background: #2c2f33;
 	padding: 10px;
@@ -136,12 +145,11 @@
 	padding: 10px;
 	border-radius: 3px;
 	border-color: #c1c1c1;
-	/* margin-left: 5%; */
 	box-shadow: 0 3px 0 #23272a;
 	cursor: pointer;
-	/* font-weight: bold; */
 }
 
+/* change button color and box shadow on save note button */
 .note_form .save_note_button:hover {
 	background: #56585b;
 	box-shadow: 0 3px 0 #2c2f33;

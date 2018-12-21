@@ -1,17 +1,15 @@
 /* The sidebar menu */
 .sidenav {
-	height: 100%; /* Full-height: remove this if you want "auto" height */
-	width: 10.35%; /* Set the width of the sidebar */
-	position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+	height: 100%;
+	width: 10.35%;
+	position: fixed; /* fixed sidenav (stay in place on scroll) */
 	z-index: 1;
-	/* top: 0; */
 	left: 0;
 	margin-top: 0px;
 	background-color: #ecf0f1;
 	overflow-x: hidden;
 	padding-top: 20px;
 	border: 0px solid #f1f1f1;
-	/* margin-top: 1%; */
 }
 
 /* The navigation menu links */
@@ -27,8 +25,6 @@
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover {
 	color: #333333;
-	/* font-weight: bolder; */
-	/* font-size: 15px; */
 }
 
 /* Style page content */
@@ -37,11 +33,13 @@
 	padding: 0px 10px;
 }
 
+/* resize sidenav and it's text for different screen widths */
 @media screen and (max-width: 2000px) {
 	.sidenav {padding-top: 15px;}
 	.sidenav a {font-size: 18px;}
 }
 
+/* resize sidenav and it's text for different screen widths */
 @media screen and (max-width: 1000px) {
 	.sidenav {padding-top: 12px;}
 	.sidenav a {font-size: 15px;}

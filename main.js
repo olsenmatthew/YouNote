@@ -17,19 +17,10 @@ var write_note_textarea = document.getElementById("write_note_textarea");
 var save_note_button = document.getElementById("save_note_button");
 var yt_player = YT.get("video_iframe");
 
-var xhttp = new XMLHttpRequest();
-var login_post_destination = "http://localhost:5000/info/posts/users";
-// xhttp.open("POST", login_post_destination, true);
-// xhttp.send({
-// 	"name": "myName",
-// 	"email": "my@gmail.com"
-// });
- // 5c1c1253f5ee8b50303e2413
- xhttp.open("GET", login_post_destination, true);
- xhttp.send();
+//resize note_box elements to fit YT video frame
+window.addEventListener("resize", resizeNotesElementsBasedOnVideoSize());
 
-window.addEventListener("resize", resizeElements());
-
+//create left sidenav
 drop_menu.addEventListener("click", function show_hide_drop_menu() {
 
 	console.log("drop menu clicked\n");
@@ -92,12 +83,16 @@ drop_menu.addEventListener("click", function show_hide_drop_menu() {
 
 });
 
+
 logo.addEventListener("click", function logo_go_back_to_home() {
 
 	console.log("logo clicked\n");
 
 });
 
+// read text from search bar search_bar_input
+// use text to get info (video name, videoId, playlist id)
+// update the YT player and then post data to database
 search_bar_icon.addEventListener("click", function search_for_video() {
 
 	console.log("search clicked\n");
@@ -159,142 +154,208 @@ search_bar_icon.addEventListener("click", function search_for_video() {
 
 });
 
+// create popup with two forms (login and registration)
+// take users input and post to database to login or create a new account
 account_buttons_account.addEventListener("click", function show_hide_account_menu() {
 
 	console.log("account menu clicked\n");
 
+	if (document.getElementById("background_of_login_create")) {
 
-		if (document.getElementById("background_of_login_create")) {
+		var background_of_login_create = document.getElementById("background_of_login_create");
 
-			var background_of_login_create = document.getElementById("background_of_login_create");
+		while(background_of_login_create.firstChild) {
+			background_of_login_create.removeChild(background_of_login_create.firstChild);
+		}
 
-			while(background_of_login_create.firstChild) {
-				background_of_login_create.removeChild(background_of_login_create.firstChild);
+		background_of_login_create.remove();
+
+	} else {
+
+		var background_of_login_create = document.createElement("div");
+		background_of_login_create.id = "background_of_login_create";
+		background_of_login_create.className = "login_container";
+
+		var div_outer = document.createElement("div");
+		div_outer.className = "row_login_create";
+		background_of_login_create.append(div_outer);
+
+		var div_inner_left = document.createElement("div");
+		div_inner_left.className = "col-md-6 login_form_left";
+		div_outer.append(div_inner_left);
+
+		// login form
+		var left_title = document.createElement("h3");
+		var left_title_text = document.createTextNode("Login");
+		left_title.append(left_title_text);
+		div_inner_left.append(left_title);
+
+		var div_form_group = document.createElement("div");
+		div_form_group.className = "form_group";
+		div_inner_left.append(div_form_group);
+
+		var login_email = document.createElement("input");
+		login_email.className = "form_control";
+		login_email.type = "email";
+		login_email.placeholder="example@gmail.com"
+		login_email.value = "";
+		div_form_group.append(login_email);
+
+		var div_form_group2 = document.createElement("div");
+		div_form_group2.className = "form_group";
+		div_inner_left.append(div_form_group2);
+
+		var login_password = document.createElement("input");
+		login_password.className = "form_control";
+		login_password.type = "text";
+		login_password.placeholder="Password"
+		login_password.value = "";
+		div_form_group2.append(login_password);
+
+		var div_form_group3 = document.createElement("div");
+		div_form_group3.className = "form_group";
+		div_inner_left.append(div_form_group3);
+
+		var login_button = document.createElement("input");
+		login_button.value = "Login";
+		login_button.type = "submit";
+		div_form_group3.append(login_button);
+
+		var div_form_group4 = document.createElement("div");
+		div_form_group4.className = "form_group";
+		div_inner_left.append(div_form_group4);
+
+		var forgot_password = document.createElement("a");
+		var forgot_password_text = document.createTextNode("Forgot Password?");
+		forgot_password.className = "buttonForgotPassword";
+		forgot_password.href = "#";
+		forgot_password.append(forgot_password_text);
+		div_form_group4.append(forgot_password);
+
+		// create account form
+		var div_inner_right = document.createElement("div");
+		div_inner_right.className = "col-mid-6 login_form_right";
+		div_outer.append(div_inner_right);
+
+		var register_account_right_title = document.createElement("h3");
+		var register_account_right_title_text = document.createTextNode("Create Account");
+		register_account_right_title.append(register_account_right_title_text);
+		div_inner_right.append(register_account_right_title);
+
+		var div_form_group5 = document.createElement("div");
+		div_form_group5.className = "form_group";
+		div_inner_right.append(div_form_group5);
+
+		var register_email = document.createElement("input");
+		register_email.className = "form_control";
+		register_email.type = "text";
+		register_email.placeholder="example@gmail.com"
+		register_email.value = "";
+		div_form_group5.append(register_email);
+
+		var div_form_group6 = document.createElement("div");
+		div_form_group6.className = "form_group";
+		div_inner_right.append(div_form_group6);
+
+		var register_password = document.createElement("input");
+		register_password.className = "form_control";
+		register_password.type = "text";
+		register_password.placeholder="Password"
+		register_password.value = "";
+		div_form_group6.append(register_password);
+
+		var div_form_group7 = document.createElement("div");
+		div_form_group7.className = "form_group";
+		div_inner_right.append(div_form_group7);
+
+		var register_button = document.createElement("input");
+		register_button.value = "Create Account";
+		register_button.type = "submit";
+		div_form_group7.append(register_button);
+
+		var div_form_group8 = document.createElement("div");
+		div_form_group8.className = "form_group";
+		div_inner_right.append(div_form_group8);
+
+		var register_forgot_password = document.createElement("a");
+		var register_forgot_password_text = document.createTextNode("Forgot Password?");
+		register_forgot_password.className = "buttonForgotPassword";
+		register_forgot_password.href = "#";
+		register_forgot_password.append(register_forgot_password_text);
+		div_form_group8.append(register_forgot_password);
+
+		var attatch_body = document.getElementById("attatch_body");
+		attatch_body.append(background_of_login_create);
+		setTimeout(function(){
+		    RemoveOnForeignClick("background_of_login_create");
+		}, 500);
+
+		login_button.addEventListener("click", async function login_user() {
+			var email = login_email.value;
+			var password = login_password.value;
+			email = email.trim();
+			password = password.trim();
+
+			if (email.length <= 1 || !email.includes("@")) {
+				window.alert("Please enter a valid email");
+			} else if (password.length < 8 || password.length > 16) {
+				window.alert("Please enter a valid password \n Length of 8 to 16 characters");
+			} else {
+
+				var login_destination = document.location + "info/posts/users/login";
+				var response = await postData(login_destination, {
+					email: email,
+					password: password
+				});
+				console.log(response.status);
+
+				if (response.ok) {
+					removeElementAndChildrenById("background_of_login_create");
+				}
+
 			}
 
-			background_of_login_create.remove();
+		});
 
-		} else {
+		register_button.addEventListener("click", async function register_user() {
 
-			var background_of_login_create = document.createElement("div");
-			background_of_login_create.id = "background_of_login_create";
-			background_of_login_create.className = "login_container";
+			var email = register_email.value;
+			var password = register_password.value;
+			email = email.trim();
+			password = password.trim();
 
-			var div_outer = document.createElement("div");
-			div_outer.className = "row_login_create";
-			background_of_login_create.append(div_outer);
+			if (email.length <= 1 || !email.includes("@")) {
+				window.alert("Please enter a valid email");
+			} else if (password.length < 8 || password.length > 16) {
+				window.alert("Please enter a valid password \n Length of 8 to 16 characters");
+			} else {
 
-			var div_inner_left = document.createElement("div");
-			div_inner_left.className = "col-md-6 login_form_left";
-			div_outer.append(div_inner_left);
+				var search_destination = document.location + "info/posts/users/find_by_email";
+				var response = await postData(search_destination, {
+					email: email
+				});
 
-			// login form
-			var left_title = document.createElement("h3");
-			var left_title_text = document.createTextNode("Login");
-			left_title.append(left_title_text);
-			div_inner_left.append(left_title);
+				if (!response.ok) {
+					var register_destination = document.location + "info/posts/users/register";
+					response = await postData(register_destination, {
+						email: email,
+						password: password
+					});
+					console.log(response.status);
 
-			var div_form_group = document.createElement("div");
-			div_form_group.className = "form_group";
-			div_inner_left.append(div_form_group);
+					if (response.ok) {
+						removeElementAndChildrenById("background_of_login_create");
+					}
 
-			var input_email = document.createElement("input");
-			input_email.className = "form_control";
-			input_email.type = "text";
-			input_email.placeholder="example@gmail.com"
-			input_email.value = "";
-			div_form_group.append(input_email);
+				} else {
+					window.alert("Account with that email exists");
+				}
 
-			var div_form_group2 = document.createElement("div");
-			div_form_group2.className = "form_group";
-			div_inner_left.append(div_form_group2);
+			}
 
-			var input_password = document.createElement("input");
-			input_password.className = "form_control";
-			input_password.type = "text";
-			input_password.placeholder="Password"
-			input_password.value = "";
-			div_form_group2.append(input_password);
+		});
 
-			var div_form_group3 = document.createElement("div");
-			div_form_group3.className = "form_group";
-			div_inner_left.append(div_form_group3);
-
-			var submit_button = document.createElement("input");
-			submit_button.value = "Login";
-			submit_button.type = "submit";
-			div_form_group3.append(submit_button);
-
-			var div_form_group4 = document.createElement("div");
-			div_form_group4.className = "form_group";
-			div_inner_left.append(div_form_group4);
-
-			var forgot_password = document.createElement("a");
-			var forgot_password_text = document.createTextNode("Forgot Password?");
-			forgot_password.className = "buttonForgotPassword";
-			forgot_password.href = "#";
-			forgot_password.append(forgot_password_text);
-			div_form_group4.append(forgot_password);
-
-			// create account form
-			var div_inner_right = document.createElement("div");
-			div_inner_right.className = "col-mid-6 login_form_right";
-			div_outer.append(div_inner_right);
-
-			var create_account_right_title = document.createElement("h3");
-			var create_account_right_title_text = document.createTextNode("Create Account");
-			create_account_right_title.append(create_account_right_title_text);
-			div_inner_right.append(create_account_right_title);
-
-			var div_form_group5 = document.createElement("div");
-			div_form_group5.className = "form_group";
-			div_inner_right.append(div_form_group5);
-
-			var create_email = document.createElement("input");
-			create_email.className = "form_control";
-			create_email.type = "text";
-			create_email.placeholder="example@gmail.com"
-			create_email.value = "";
-			div_form_group5.append(create_email);
-
-			var div_form_group6 = document.createElement("div");
-			div_form_group6.className = "form_group";
-			div_inner_right.append(div_form_group6);
-
-			var create_password = document.createElement("input");
-			create_password.className = "form_control";
-			create_password.type = "text";
-			create_password.placeholder="Password"
-			create_password.value = "";
-			div_form_group6.append(create_password);
-
-			var div_form_group7 = document.createElement("div");
-			div_form_group7.className = "form_group";
-			div_inner_right.append(div_form_group7);
-
-			var create_button = document.createElement("input");
-			create_button.value = "Create Account";
-			create_button.type = "submit";
-			div_form_group7.append(create_button);
-
-			var div_form_group8 = document.createElement("div");
-			div_form_group8.className = "form_group";
-			div_inner_right.append(div_form_group8);
-
-			var create_forgot_password = document.createElement("a");
-			var create_forgot_password_text = document.createTextNode("Forgot Password?");
-			create_forgot_password.className = "buttonForgotPassword";
-			create_forgot_password.href = "#";
-			create_forgot_password.append(create_forgot_password_text);
-			div_form_group8.append(create_forgot_password);
-
-			var attatch_body = document.getElementById("attatch_body");
-			attatch_body.append(background_of_login_create);
-			setTimeout(function(){
-			    removeOnForeignClick("background_of_login_create");
-			}, 500);
-
-		}
+	}
 
 });
 
@@ -308,6 +369,8 @@ account_buttons_notes.addEventListener("click", function show_hide_notes_history
 
 });
 
+//save notes from write_note_textarea, then clear write_note_textarea
+//post the notes data to database along with video information
 save_note_button.addEventListener("click", function post_written_note() {
 
 	var note_text = write_note_textarea.value;
@@ -336,7 +399,8 @@ save_note_button.addEventListener("click", function post_written_note() {
 
 });
 
-function removeOnForeignClick(id) {
+// remove element and children when click occurs in document that is not contained by the given id
+function RemoveOnForeignClick(id) {
 
 	if (document.getElementById(id)) {
 
@@ -348,7 +412,6 @@ function removeOnForeignClick(id) {
 					element.removeChild(element.firstChild);
 				}
 				element.remove();
-				// removeElementAndChildren(id);
 			}
 		}
 
@@ -362,7 +425,8 @@ function removeOnForeignClick(id) {
 
 }
 
-function resizeElements() {
+//resize note_box elements to fit YT video frame
+function resizeNotesElementsBasedOnVideoSize() {
 
 	var video_and_notes_height = video_iframe.clientHeight;
 
@@ -385,4 +449,35 @@ function resizeElements() {
 	save_note_button.style.margin = (video_and_notes_height*.025)+"px";
 	save_note_button.style.fontSize = (video_and_notes_height*.025)+"px";
 
+}
+
+// accept url and data, post data to url in json information
+// wait for response and return response
+async function postData(url = ``, data = {}) {
+	var value = '';
+	await fetch(url, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json;charset=UTF-8"
+		},
+		body: JSON.stringify(data)
+	}).then(response => {
+		// console.log(response);
+		value = response;
+		response.json();
+	}).catch(error => {
+		// console.log("post data error: "+error);
+	});
+	return value;
+}
+
+// accept id of element, if exists, remove children and element
+function removeElementAndChildrenById(id) {
+	if (document.getElementById(id)) {
+		var element = document.getElementById(id);
+		while(element.firstChild) {
+			element.removeChild(element.firstChild);
+		}
+		element.remove();
+	}
 }
