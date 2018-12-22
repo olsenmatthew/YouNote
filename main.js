@@ -376,6 +376,8 @@ save_note_button.addEventListener("click", function post_written_note() {
 	var note_text = write_note_textarea.value;
 	if (note_text.match(/\S+/i)) {
 
+		console.log(response);
+
 		var num = yt_player.getCurrentTime();
 		console.log("current time: "+num);
 
@@ -386,6 +388,19 @@ save_note_button.addEventListener("click", function post_written_note() {
 
 		var user_note = document.createElement("div");
 		user_note.className = "user_note";
+
+		//TODO: FINISH NOTE POSTING CONDITIONS
+		var note_destination = document.location + "info/posts/notes/create";
+		var videoId = yt_player.videoId;
+		var playlistId = yt_player.playlist;
+		var response = postData(note_destination, {
+			videoId: videoId,
+			playlistId: playlistId,
+			note_content: {
+				note_id: note_text,
+				note_time: num
+			}
+		});
 
 		var user_note_text = document.createTextNode(note_text);
 		user_note.append(user_note_text);
@@ -462,11 +477,11 @@ async function postData(url = ``, data = {}) {
 		},
 		body: JSON.stringify(data)
 	}).then(response => {
-		// console.log(response);
+		console.log(response);
 		value = response;
 		response.json();
 	}).catch(error => {
-		// console.log("post data error: "+error);
+		console.log("post data error: "+error);
 	});
 	return value;
 }

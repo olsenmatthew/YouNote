@@ -4,6 +4,31 @@ const router = express.Router();
 
 const User = require("../models/user");
 
+//search database to find a user with this email exists
+router.post("/find_by_email", (req, res) => {
+	var email = req.body.email;
+
+	User.findOne({email: email}, (err, usr) => {
+		if (err) {
+			console.log("email search error: "+err);
+			return res.status(500).json({
+				error: err
+			});
+		} else if (!usr) {
+			console.log("no user found with email: " + err);
+			return res.status(404).json({
+				error: err
+			});
+		} else {
+			console.log("email found: " + usr);
+			req.session.user = usr;
+			return res.status(200).json({
+				user: usr
+			});
+		}
+	});
+});
+
 //post user id
 router.post("/register", (req, res, next) => {
 
@@ -44,31 +69,6 @@ router.post("/login", (req, res) => {
 			});
 		} else {
 			console.log("logged in: " + usr);
-			req.session.user = usr;
-			return res.status(200).json({
-				user: usr
-			});
-		}
-	});
-});
-
-//search database to find a user with this email exists
-router.post("/find_by_email", (req, res) => {
-	var email = req.body.email;
-
-	User.findOne({email: email}, (err, usr) => {
-		if (err) {
-			console.log("email search error: "+err);
-			return res.status(500).json({
-				error: err
-			});
-		} else if (!usr) {
-			console.log("no user found with email: " + err);
-			return res.status(404).json({
-				error: err
-			});
-		} else {
-			console.log("email found: " + usr);
 			req.session.user = usr;
 			return res.status(200).json({
 				user: usr

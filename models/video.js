@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const video_schema  = mongoose.Schema({
-	name: String,
+	video_id: String,
 	notes: [String],
 	views: Number,
 	viewersid: [String]

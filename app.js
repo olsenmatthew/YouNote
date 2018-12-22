@@ -8,6 +8,7 @@ const session = require("express-session");
 
 // info routes
 const userRoutes = require("./routes/users");
+const noteRoutes = require("./routes/notes");
 
 // connect to mongodb atlas
 mongoose.connect("mongodb://YouNotePublic:YouNotePublic@younote-shard-00-00-qkm9p.mongodb.net:27017,younote-shard-00-01-qkm9p.mongodb.net:27017,younote-shard-00-02-qkm9p.mongodb.net:27017/test?ssl=true&replicaSet=YouNote-shard-0&authSource=admin&retryWrites=true", {useNewUrlParser: true});
@@ -47,6 +48,8 @@ app.use(session({
 
 //info routes (for posting/getting data from db)
 app.use("/info/posts/users", userRoutes);
+app.use("/info/posts/notes", noteRoutes);
+
 
 // handle not found errors
 app.use((req, res, next) => {
