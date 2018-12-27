@@ -17,9 +17,11 @@ var write_note_textarea = document.getElementById("write_note_textarea");
 var save_note_button = document.getElementById("save_note_button");
 var yt_player = YT.get("video_iframe");
 
+// getVideoNotes();
+
 //resize note_box elements to fit YT video frame
 window.addEventListener("resize", resizeNotesElementsBasedOnVideoSize());
-
+resizeNotesElementsBasedOnVideoSize();
 //create left sidenav
 drop_menu.addEventListener("click", function show_hide_drop_menu() {
 
@@ -366,6 +368,7 @@ account_buttons_notifications.addEventListener("click", function show_hide_notif
 account_buttons_notes.addEventListener("click", function show_hide_notes_history() {
 
 	console.log("notes history clicked\n");
+	getVideoNotes();
 
 });
 
@@ -381,7 +384,7 @@ save_note_button.addEventListener("click", function post_written_note() {
 		var num = yt_player.getCurrentTime();
 		console.log("current time: "+num);
 
-		 note_text = note_text + "\n" + "time: " + num;
+		note_text = note_text + "\n" + "time: " + num;
 
 		var new_note = document.createElement("div");
 		new_note.className = "note my_content";
@@ -390,16 +393,16 @@ save_note_button.addEventListener("click", function post_written_note() {
 		user_note.className = "user_note";
 
 		//TODO: FINISH NOTE POSTING CONDITIONS
-		var note_destination = document.location + "info/posts/notes/create";
-		var videoId = yt_player.videoId;
-		var playlistId = yt_player.playlist;
+		var note_destination = document.location + "info/posts/notes/update";
+		var videoId = yt_player.getVideoData()['video_id'];
+		var playlistId = yt_player.getPlaylistId();
+		// var note_data = JSON.stringify({note_id: note_text,	note_time: num});
+		var note_data = {note_id: note_text,	note_time: num};
+		console.log(note_data);
 		var response = postData(note_destination, {
 			videoId: videoId,
 			playlistId: playlistId,
-			note_content: {
-				note_id: note_text,
-				note_time: num
-			}
+			note_content: note_data
 		});
 
 		var user_note_text = document.createTextNode(note_text);
@@ -495,4 +498,17 @@ function removeElementAndChildrenById(id) {
 		}
 		element.remove();
 	}
+}
+
+async function getVideoNotes() {
+	var note_destination = document.location + "info/posts/notes/search";
+	var videoId = yt_player.getVideoData()['video_id'];
+	console.log("videoId: "+videoId);
+	// var playlistId = yt_player.playlist;
+	var response = await postData(note_destination, {
+		videoId: videoId
+		// playlistId: playlistId
+	});
+
+	console.log("get video notes: "+response);
 }

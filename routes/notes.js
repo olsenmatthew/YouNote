@@ -13,9 +13,8 @@ router.post("/search", (req, res, next) => {
 		});
 	}
 	var vidId = req.body.videoId;
-	var playId = req.body.playlistId;
 
-	Note.findOne({userId: uid, videoId: vidId, playlistId: playId}, (err, note) => {
+	Note.findOne({userId: uid, videoId: vidId}).then((note, err) => {
 		if (err) {
 			console.log("note search error: "+err);
 			return res.status(500).json({
@@ -57,20 +56,20 @@ router.post("/create", (req, res, next) => {
 
 	note.save().then(result => {
 		console.log("result: "+result);
-		res.status(201).json({
+		return res.status(201).json({
 			message: "created note",
 			myResult: result
 		});
 	}).catch(err => {
 		console.log(err);
-		res.status(500).json({
+		return res.status(500).json({
 			error: err
 		});
 	});
 
 });
 
-router.post("update", (req, res, next) => {
+router.post("/update", (req, res, next) => {
 
 	var uid = req.session.user;
 	var vidId = req.body.videoId;
@@ -84,15 +83,25 @@ router.post("update", (req, res, next) => {
 		note_content: [noteContent]
 	});
 
+	console.log("update content: "+noteContent.note_id);
+
 	note.save().then(() => {
 		Note.findOne({userId: uid, videoId: vidId, playlistId: playId}).then((record) => {
 			record.note_content.push({noteContent});
 			record.save().then(() => {
-				Note.findOne({userId: uid, videoId: vidId, playlistId: playId}).then((result) => {
-					console.log("note after update: "+ result);
-					done();
+				// Note.findOne({userId: uid, videoId: vidId, playlistId: playId}).then((result) => {
+				// 	console.log("note after update: "+ result);
+				// });
+				console.log("note is updated: " + record);
+				return res.status(201).json({
+					result: record
 				});
 			});
+		});
+	}).catch(err => {
+		console.log(err);
+		res.status(500).json({
+			error: err
 		});
 	});
 

@@ -35,7 +35,7 @@
 	position: fixed;
 	right: 5%;
 	background: #fff;
-	box-shadow: 0 3px #cccccc;
+	/* box-shadow: 0 3px #cccccc; */
 }
 
 /* set background of note_box_title */
