@@ -2,7 +2,7 @@
 var drop_menu = document.getElementById("drop_menu");
 var logo = document.getElementById("logo");
 var search_bar_input = document.getElementById("search_bar_input");
-var search_bar_icon = document.getElementById("search_bar_icon");
+var search_bar_button = document.getElementById("search_bar_button");
 var account_buttons_account = document.getElementById("account_buttons_account");
 var account_buttons_notifications = document.getElementById("account_buttons_notifications");
 var account_buttons_notes = document.getElementById("account_buttons_notes");
@@ -17,15 +17,14 @@ var write_note_textarea = document.getElementById("write_note_textarea");
 var save_note_button = document.getElementById("save_note_button");
 var yt_player = YT.get("video_iframe");
 
-// getVideoNotes();
-
 //resize note_box elements to fit YT video frame
 window.addEventListener("resize", resizeNotesElementsBasedOnVideoSize());
 resizeNotesElementsBasedOnVideoSize();
+
 //create left sidenav
 drop_menu.addEventListener("click", function show_hide_drop_menu() {
 
-	console.log("drop menu clicked\n");
+	// console.log("drop menu clicked\n");
 
 	if (document.getElementById("background_of_drop_menu")) {
 
@@ -88,34 +87,30 @@ drop_menu.addEventListener("click", function show_hide_drop_menu() {
 
 logo.addEventListener("click", function logo_go_back_to_home() {
 
-	console.log("logo clicked\n");
+	// console.log("logo clicked\n");
 
 });
 
 // read text from search bar search_bar_input
 // use text to get info (video name, videoId, playlist id)
 // update the YT player and then post data to database
-search_bar_icon.addEventListener("click", function search_for_video() {
+search_bar_button.addEventListener("click", function search_for_video() {
 
-	console.log("search clicked\n");
+	// console.log("search clicked\n");
 
 	var new_link = search_bar_input.value;
 	if (new_link.length == 0) {
-		console.log("Empty Search: Go Home");
+		// console.log("Empty Search: Go Home");
 	} else {
 
 		var data_sections = new_link.split("&");
-		console.log(data_sections);
+		// console.log(data_sections);
 
 		var time = "";
 		var playlist = "";
 		var playlist_index = "";
 
-		// TODO: save index of playlist
-		// TODO: save video to database along with playlist
-		// TODO: save playlist to database
-
-		for(var i = 0; i < data_sections.length; i++) {
+		for (var i = 0; i < data_sections.length; i++) {
 
 			if (data_sections[i].includes("v=")) {
 
@@ -138,10 +133,12 @@ search_bar_icon.addEventListener("click", function search_for_video() {
 
 		}
 
-		console.log("new_link: " + new_link);
-		console.log("time: " + time);
-		console.log("playlist: " + playlist);
-		console.log("playlist_index: " + playlist_index);
+
+
+		// console.log("new_link: " + new_link);
+		// console.log("time: " + time);
+		// console.log("playlist: " + playlist);
+		// console.log("playlist_index: " + playlist_index);
 
 		yt_player.loadVideoById({videoId:new_link});
 
@@ -149,8 +146,12 @@ search_bar_icon.addEventListener("click", function search_for_video() {
 			note_logs.removeChild(note_logs.firstChild);
 		}
 
-		console.log("new video\n");
+		// console.log("new video\n");
 		search_bar_input.value = "";
+		write_note_textarea.value = "";
+
+		populateNotes(new_link);
+		setSessionVideoId(new_link);
 
 	}
 
@@ -160,7 +161,7 @@ search_bar_icon.addEventListener("click", function search_for_video() {
 // take users input and post to database to login or create a new account
 account_buttons_account.addEventListener("click", function show_hide_account_menu() {
 
-	console.log("account menu clicked\n");
+	// console.log("account menu clicked\n");
 
 	if (document.getElementById("background_of_login_create")) {
 
@@ -309,7 +310,7 @@ account_buttons_account.addEventListener("click", function show_hide_account_men
 					email: email,
 					password: password
 				});
-				console.log(response.status);
+				// console.log(response.status);
 
 				if (response.ok) {
 					removeElementAndChildrenById("background_of_login_create");
@@ -343,7 +344,7 @@ account_buttons_account.addEventListener("click", function show_hide_account_men
 						email: email,
 						password: password
 					});
-					console.log(response.status);
+					// console.log(response.status);
 
 					if (response.ok) {
 						removeElementAndChildrenById("background_of_login_create");
@@ -362,54 +363,38 @@ account_buttons_account.addEventListener("click", function show_hide_account_men
 });
 
 account_buttons_notifications.addEventListener("click", function show_hide_notifications() {
-	console.log("notifications clicked\n");
+	// console.log("notifications clicked\n");
 });
 
 account_buttons_notes.addEventListener("click", function show_hide_notes_history() {
 
-	console.log("notes history clicked\n");
-	getVideoNotes();
+	// console.log("notes history clicked\n");
+	var videoId = yt_player.getVideoData()['video_id'];
+	var response = getVideoNotes(videoId);
 
 });
 
 //save notes from write_note_textarea, then clear write_note_textarea
 //post the notes data to database along with video information
-save_note_button.addEventListener("click", function post_written_note() {
+save_note_button.addEventListener("click", async function post_written_note() {
 
 	var note_text = write_note_textarea.value;
 	if (note_text.match(/\S+/i)) {
 
-		console.log(response);
-
 		var num = yt_player.getCurrentTime();
-		console.log("current time: "+num);
-
-		note_text = note_text + "\n" + "time: " + num;
-
-		var new_note = document.createElement("div");
-		new_note.className = "note my_content";
-
-		var user_note = document.createElement("div");
-		user_note.className = "user_note";
-
-		//TODO: FINISH NOTE POSTING CONDITIONS
-		var note_destination = document.location + "info/posts/notes/update";
 		var videoId = yt_player.getVideoData()['video_id'];
 		var playlistId = yt_player.getPlaylistId();
-		// var note_data = JSON.stringify({note_id: note_text,	note_time: num});
-		var note_data = {note_id: note_text,	note_time: num};
-		console.log(note_data);
-		var response = postData(note_destination, {
-			videoId: videoId,
-			playlistId: playlistId,
-			note_content: note_data
-		});
+		var note_data = {note_text: note_text, note_time: num};
 
-		var user_note_text = document.createTextNode(note_text);
-		user_note.append(user_note_text);
+		var update = await areNotesAvailable(videoId);
+		console.log("Should Update: "+update);
+		if (update) {
+			updateVideoNote(videoId, playlistId, note_data);
+		} else {
+			createVideoNote(videoId, playlistId, note_data);
+		}
 
-		new_note.append(user_note);
-		note_logs.append(new_note);
+		appendNewNote(note_text);
 
 	}
 
@@ -448,7 +433,7 @@ function resizeNotesElementsBasedOnVideoSize() {
 
 	var video_and_notes_height = video_iframe.clientHeight;
 
-	console.log("video notes height: "+video_and_notes_height);
+	// console.log("video notes height: "+video_and_notes_height);
 
 	note_box.style.height = video_and_notes_height+"px";
 
@@ -480,12 +465,13 @@ async function postData(url = ``, data = {}) {
 		},
 		body: JSON.stringify(data)
 	}).then(response => {
-		console.log(response);
+		// console.log(response);
 		value = response;
-		response.json();
 	}).catch(error => {
-		console.log("post data error: "+error);
+		// console.log("post data error: "+error);
 	});
+
+	// console.log("data: "+ value.status);
 	return value;
 }
 
@@ -500,15 +486,129 @@ function removeElementAndChildrenById(id) {
 	}
 }
 
-async function getVideoNotes() {
-	var note_destination = document.location + "info/posts/notes/search";
-	var videoId = yt_player.getVideoData()['video_id'];
-	console.log("videoId: "+videoId);
-	// var playlistId = yt_player.playlist;
+// create the first note for this user id and the video id
+async function createVideoNote(videoId=``, playlistId=``, note_data={}) {
+
+	var note_destination = document.location + "info/posts/notes/create";
+
+	// console.log("videoId: " + videoId);
+
 	var response = await postData(note_destination, {
-		videoId: videoId
-		// playlistId: playlistId
+		videoId: videoId,
+		playlistId: playlistId,
+		note_content: note_data
 	});
 
-	console.log("get video notes: "+response);
+	// console.log("get video notes: " + response);
+
+	return response;
+
 }
+
+//update user's notes for this video (updates content)
+async function updateVideoNote(videoId=``, playlistId=``, note_data={}) {
+
+	var note_destination = document.location + "info/posts/notes/update";
+
+	// console.log("videoId: " + videoId);
+
+	var response = await postData(note_destination, {
+		videoId: videoId,
+		playlistId: playlistId,
+		note_content: note_data
+	});
+
+	// console.log("get video notes: " + response);
+
+	return response;
+
+}
+
+// search for video notes with this video id
+async function getVideoNotes(videoId=``) {
+
+	var note_destination = document.location + "info/posts/notes/search";
+	// console.log("videoId: "+videoId);
+	var response = await postData(note_destination, {
+		videoId: videoId
+	});
+
+	// console.log("get video notes: " + response);
+
+	return response;
+
+}
+
+// return true or false as to whether the notes exist
+async function areNotesAvailable(videoId=``) {
+
+	var response = await getVideoNotes(videoId);
+	// console.log("are notes availble" + response.ok);
+	return response.ok;
+
+}
+
+// get notes for this video
+// check for error, if error, do nothing
+// else append each new not to note_logs
+async function populateNotes(videoId) {
+
+	if (areNotesAvailable(videoId)) {
+		var response = await getVideoNotes(videoId);
+		response.json().then((data) => {
+			if (!data.error) {
+				// console.log(data);
+				data.note.note_content.sort(noteCompareByTime);
+				for(var i = 0; i < data.note.note_content.length; i++) {
+					// console.log(data.note.note_content[i]);
+					appendNewNote(data.note.note_content[i].note_text);
+				}
+			}
+		});
+	}
+
+}
+
+//compare note object by time for sorting function
+function noteCompareByTime(note1 , note2) {
+
+	var first_time = parseInt(note1.note_time);
+	var second_time = parseInt(note2.note_time);
+
+	if (first_time < second_time) {
+		return -1;
+	}
+	if (first_time > second_time) {
+		return 1;
+	}
+	return 0;
+
+}
+
+// append new note to note_logs
+function appendNewNote(note_text=``) {
+
+	var new_note = document.createElement("div");
+	new_note.className = "note my_content";
+
+	var user_note = document.createElement("div");
+	user_note.className = "user_note";
+
+	var user_note_text = document.createTextNode(note_text);
+	user_note.append(user_note_text);
+
+	new_note.append(user_note);
+	note_logs.append(new_note);
+
+}
+
+// change the session storage key for the videoId
+function setSessionVideoId(videoId=``) {
+	window.localStorage.setItem("videoId", videoId);
+}
+
+// function loadSessionVideoId() {
+//
+// 	yt_player.loadVideoById({videoId:window.localStorage.getItem("videoId")});
+//
+// }

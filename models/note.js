@@ -5,7 +5,7 @@ const notes_schema  = mongoose.Schema({
 	videoId: String,
 	playlistId: String,
 	note_content: [{
-		note_id: String,
+		note_text: String,
 		note_time: String
 	}]
 });

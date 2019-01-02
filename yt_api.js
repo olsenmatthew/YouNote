@@ -13,15 +13,17 @@ var player;
 
 // initialize player, set default videoId, and set even functions for each event
 function onYouTubeIframeAPIReady() {
-	player = new YT.Player('video_iframe', {
+	player = new YT.Player ('video_iframe', {
 		width : window_width,
 		height : window_width / 2,
-		videoId: "yCChR2HgCgc",
+		playerVars: {'autoplay': 1},
+		videoId: "",
 		events: {
 		  'onReady': onPlayerReady,
 		  'onStateChange': onPlayerStateChange
 		}
 	});
+
 	var tag_main = document.createElement("script");
 	tag_main.src = "main.js";
 	document.getElementById("body").append(tag_main);
@@ -29,12 +31,23 @@ function onYouTubeIframeAPIReady() {
 
 // play video when ready
 function onPlayerReady(event) {
-	console.log("onPlayerReady");
+
+	loadVideoId();
 	event.target.playVideo();
+
 }
 
 // manage different video events
 function onPlayerStateChange(event) {
-	console.log("onPlayerStateChange");
-	console.log(event.target);
+
+	// console.log("event"+event.data);
+
+}
+
+function loadVideoId() {
+	if (window.localStorage.getItem("videoId")) {
+		player.loadVideoById({videoId:window.localStorage.getItem("videoId")});
+	} else {
+		player.loadVideoById({videoId:"yCChR2HgCgc"});
+	}
 }

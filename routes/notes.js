@@ -36,6 +36,8 @@ router.post("/search", (req, res, next) => {
 
 router.post("/create", (req, res, next) => {
 
+	console.log("create function");
+
 	var uid = req.session.user;
 	if(!uid) {
 		console.log("no session found error: " + err);
@@ -71,7 +73,15 @@ router.post("/create", (req, res, next) => {
 
 router.post("/update", (req, res, next) => {
 
+	console.log("create function");
+
 	var uid = req.session.user;
+	if(!uid) {
+		console.log("no session found error: " + err);
+		return res.status(500).json({
+			error: err
+		});
+	}
 	var vidId = req.body.videoId;
 	var playId = req.body.playlistId;
 	var noteContent = req.body.note_content;
@@ -83,24 +93,19 @@ router.post("/update", (req, res, next) => {
 		note_content: [noteContent]
 	});
 
-	console.log("update content: "+noteContent.note_id);
+	console.log("update content: "+noteContent.note_text);
 
-	note.save().then(() => {
-		Note.findOne({userId: uid, videoId: vidId, playlistId: playId}).then((record) => {
-			record.note_content.push({noteContent});
-			record.save().then(() => {
-				// Note.findOne({userId: uid, videoId: vidId, playlistId: playId}).then((result) => {
-				// 	console.log("note after update: "+ result);
-				// });
-				console.log("note is updated: " + record);
-				return res.status(201).json({
-					result: record
-				});
+	Note.findOne({userId: uid, videoId: vidId, playlistId: playId}).then((record) => {
+		record.note_content.push(noteContent);
+		record.save().then(() => {
+			console.log("note is updated: " + record);
+			return res.status(201).json({
+				result: record
 			});
 		});
 	}).catch(err => {
-		console.log(err);
-		res.status(500).json({
+		console.log("update error: " + err);
+		return res.status(500).json({
 			error: err
 		});
 	});
