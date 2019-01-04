@@ -44,6 +44,7 @@ function onPlayerStateChange(event) {
 
 }
 
+// load last video user watched or if not availble, load default video
 function loadVideoId() {
 	if (window.localStorage.getItem("videoId")) {
 		player.loadVideoById({videoId:window.localStorage.getItem("videoId")});

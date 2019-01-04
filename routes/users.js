@@ -77,4 +77,18 @@ router.post("/login", (req, res) => {
 	});
 });
 
+router.post("/session", (req, res) => {
+	var uid = req.session.user;
+	console.log("uid: "+uid);
+	if(!uid) {
+		return res.status(500).json({
+			error: "Not In Session"
+		});
+	} else {
+		return res.status(201).json({
+			message: "In Session"
+		});
+	}
+});
+
 module.exports = router;

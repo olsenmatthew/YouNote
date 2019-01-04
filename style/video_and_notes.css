@@ -96,6 +96,7 @@ handle overflow with vertical scroll
 
 /* change colors of notes if posted by this user */
 .my_content .user_note {
+	white-space: pre-wrap;
 	background: #aab8e8;
 }
 
